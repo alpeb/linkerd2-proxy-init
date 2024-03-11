@@ -58,7 +58,7 @@ function wait_rollout() {
   fi
 }
 
-trap cleanup EXIT
+#trap cleanup EXIT
 
 if k get ns/cni-plugin-test >/dev/null 2>&1 ; then
   echo 'ns/cni-plugin-test already exists' >&2
