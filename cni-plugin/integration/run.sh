@@ -45,6 +45,10 @@ function cleanup() {
     done
 }
 
+function cleanup2() {
+	docker logs k3d-l5d-flannel-test-server-0
+}
+
 function wait_rollout() {
   local name="$1"
   local ns="$2"
@@ -58,7 +62,7 @@ function wait_rollout() {
   fi
 }
 
-#trap cleanup EXIT
+trap cleanup2 EXIT
 
 if k get ns/cni-plugin-test >/dev/null 2>&1 ; then
   echo 'ns/cni-plugin-test already exists' >&2
