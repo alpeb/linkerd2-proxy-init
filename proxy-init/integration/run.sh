@@ -31,5 +31,6 @@ fi
 
 echo '# Creating the test lab...'
 #sysctl -a | grep disable_ipv6
-ip6tables-save
+whoami
+sudo ip6tables-save
 modprobe ipv6
