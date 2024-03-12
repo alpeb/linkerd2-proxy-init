@@ -32,6 +32,7 @@ fi
 echo '# Creating the test lab...'
 cat /proc/net/if_inet6
 modinfo ipv6
+lsmod | grep -i ipv6
 k create ns proxy-init-test
 k create -f iptables/iptablestest-lab.yaml
 
