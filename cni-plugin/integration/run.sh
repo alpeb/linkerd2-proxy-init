@@ -46,7 +46,7 @@ function cleanup() {
 }
 
 function cleanup2() {
-  k get po -a -owide
+  k get po -A -owide
 	docker logs k3d-l5d-flannel-test-server-0
 }
 
