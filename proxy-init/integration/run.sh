@@ -41,4 +41,4 @@ echo "POD_WITH_EXISTING_RULES_IP=${POD_WITH_EXISTING_RULES_IP}"
 
 k get po -A -owide
 k -n proxy-init-test describe po pod-with-existing-rules
-k -n proxy-init-test logs pod-with-existing-rules linkerd-init
+k -n proxy-init-test logs pod-with-existing-rules iptables-test
