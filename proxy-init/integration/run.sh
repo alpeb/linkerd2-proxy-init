@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 cd "${BASH_SOURCE[0]%/*}"
 
@@ -30,7 +30,13 @@ if k get ns/proxy-init-test >/dev/null 2>&1 ; then
 fi
 
 echo '# Creating the test lab...'
-#sysctl -a | grep disable_ipv6
-sudo ip6tables-save
-sudo ip6tables-save -h
-modprobe ipv6
+k create ns proxy-init-test
+k create -f iptables/iptablestest-lab.yaml
+
+POD_WITH_NO_RULES_IP=$(kip pod-with-no-rules)
+echo "POD_WITH_NO_RULES_IP=${POD_WITH_NO_RULES_IP}"
+
+POD_WITH_EXISTING_RULES_IP=$(kip pod-with-existing-rules)
+echo "POD_WITH_EXISTING_RULES_IP=${POD_WITH_EXISTING_RULES_IP}"
+
+k -n proxy-init-test describe po pod-with-existing-rules
