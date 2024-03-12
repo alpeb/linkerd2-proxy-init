@@ -30,5 +30,6 @@ if k get ns/proxy-init-test >/dev/null 2>&1 ; then
 fi
 
 echo '# Creating the test lab...'
-sysctl -a | grep disable_ipv6
+#sysctl -a | grep disable_ipv6
+ip6tables-save
 modprobe ipv6
