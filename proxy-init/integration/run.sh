@@ -51,6 +51,8 @@ echo "POD_DOESNT_REDIRECT_BLACKLISTED_IP=${POD_DOESNT_REDIRECT_BLACKLISTED_IP}"
 POD_IGNORES_SUBNETS_IP=$(kip pod-ignores-subnets)
 echo "POD_IGNORES_SUBNETS_IP=${POD_IGNORES_SUBNETS_IP}"
 
+k get po -A -owide
+
 echo '# Running tester...'
 k run iptables-tester \
         --attach \
@@ -70,4 +72,5 @@ k run iptables-tester \
         -- \
         go test -integration-tests
 
-k delete ns proxy-init-test
+
+#k delete ns proxy-init-test
