@@ -68,6 +68,13 @@ func ConfigureFirewall(firewallConfiguration FirewallConfiguration) error {
 	log.Debugf("using '%s' to set-up firewall rules", firewallConfiguration.BinPath)
 	log.Debugf("using '%s' to list all available rules", firewallConfiguration.SaveBinPath)
 
+	cmd := exec.Command("modprobe", "ipv6")
+	res, err := executeCommand(firewallConfiguration, cmd)
+	if err != nil {
+		log.Error("failed: res: %s err: %s", res, err)
+		return err
+	}
+
 	existingRules, err := executeCommand(firewallConfiguration, firewallConfiguration.makeShowAllRules())
 	if err != nil {
 		log.Error("aborting firewall configuration")
