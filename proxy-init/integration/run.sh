@@ -31,3 +31,4 @@ fi
 
 echo '# Creating the test lab...'
 sysctl -a | grep disable_ipv6
+modprobe ipv6
