@@ -40,3 +40,4 @@ POD_WITH_EXISTING_RULES_IP=$(kip pod-with-existing-rules)
 echo "POD_WITH_EXISTING_RULES_IP=${POD_WITH_EXISTING_RULES_IP}"
 
 k -n proxy-init-test describe po pod-with-existing-rules
+k -n proxy-init-test logs pod-with-existing-rules iptables-test
