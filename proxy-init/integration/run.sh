@@ -30,7 +30,9 @@ if k get ns/proxy-init-test >/dev/null 2>&1 ; then
 fi
 
 echo '# Creating the test lab...'
+iptables -h
 ip6tables -h
+echo $?
 k create ns proxy-init-test
 k create -f iptables/iptablestest-lab.yaml
 
