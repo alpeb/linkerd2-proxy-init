@@ -71,7 +71,7 @@ func ConfigureFirewall(firewallConfiguration FirewallConfiguration) error {
 	cmd := exec.Command("modprobe", "ipv6")
 	res, err := executeCommand(firewallConfiguration, cmd)
 	if err != nil {
-		log.Error("failed: res: %s err: %s", res, err)
+		log.Errorf("failed: res: %s err: %s", string(res), err)
 		return err
 	}
 
