@@ -8,6 +8,8 @@ cd "${BASH_SOURCE[0]%/*}"
 # Default is 'flannel'
 SCENARIO=${CNI_TEST_SCENARIO:-flannel}
 
+ip a
+
 # Run kubectl with the correct context.
 function k() {
   if [ -n "${TEST_CTX:-}" ]; then

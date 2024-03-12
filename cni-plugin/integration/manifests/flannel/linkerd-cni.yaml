@@ -86,7 +86,7 @@ data:
         "simulate": false,
         "use-wait-flag": false,
         "iptables-mode": "legacy",
-        "ipv6": false
+        "ipv6": true
       }
     }
 ---
