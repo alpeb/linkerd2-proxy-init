@@ -3,15 +3,29 @@ name: cni-plugin-integration
 on: push
 
 jobs:
-  repair-controller:
+  repair-controller-new-ubuntu:
     timeout-minutes: 15
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: linkerd/dev/actions/setup-rust@v45
       - uses: linkerd/dev/actions/setup-tools@v45
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Run repair-controller tests
         run: |
+          ldd --version
+          loc=$(which cargo-action-fmt)
+          rm $loc
+          TARGETCRATE=linkerd-cni-repair-controller just --justfile=justfile-rust build
+  repair-controller-old-ubuntu:
+    timeout-minutes: 15
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: linkerd/dev/actions/setup-rust@v45
+      - uses: linkerd/dev/actions/setup-tools@v45
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Run repair-controller tests
+        run: |
+          ldd --version
           loc=$(which cargo-action-fmt)
           rm $loc
           TARGETCRATE=linkerd-cni-repair-controller just --justfile=justfile-rust build
