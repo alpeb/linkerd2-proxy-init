@@ -13,6 +13,7 @@ jobs:
       - name: Run repair-controller tests
         run: |
           ldd --version
+          export CFLAGS="-std=gnu17"
           loc=$(which cargo-action-fmt)
           rm $loc
           TARGETCRATE=linkerd-cni-repair-controller just --justfile=justfile-rust build
