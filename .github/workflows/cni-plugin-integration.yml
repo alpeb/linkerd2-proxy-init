@@ -12,5 +12,6 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Run repair-controller tests
         run: |
-          which cargo-action-fmt
+          loc=$(which cargo-action-fmt)
+          rm $loc
           TARGETCRATE=linkerd-cni-repair-controller just --justfile=justfile-rust build
