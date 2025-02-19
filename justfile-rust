@@ -52,4 +52,4 @@ package: build
 
 build *flags:
     {{ _cargo }} fetch --locked
-    {{ _cargo }} build -v --workspace -p {{ crate }} {{ flags }}
+    {{ _cargo }} build -vv --workspace -p {{ crate }} {{ flags }}
