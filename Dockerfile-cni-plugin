@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
     cargo install --force --locked bindgen-cli && \
     cargo fetch
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y arm-linux-musleabihf-gcc
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y musl musl-dev musl-tools
 env CARGO="cargo auditable"
 ARG TARGETARCH
 # Enable tokio runtime metrics
