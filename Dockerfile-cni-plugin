@@ -21,7 +21,8 @@ COPY --link cni-repair-controller cni-repair-controller
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     cargo install --force --locked bindgen-cli && \
     cargo fetch
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y g++-arm-linux-musleabihf
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y arm-linux-musleabihf-gcc
 env CARGO="cargo auditable"
 ARG TARGETARCH
 # Enable tokio runtime metrics
