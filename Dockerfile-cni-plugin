@@ -6,14 +6,10 @@ COPY --link justfile justfile-rust .
 COPY --link Cargo.toml Cargo.lock .
 COPY --link validator validator
 COPY --link cni-repair-controller cni-repair-controller
-RUN which ld
-RUN ld --verbose|grep -i -A 10 supported
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    cargo install --force --locked bindgen-cli && \
     cargo fetch
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y binutils-aarch64-linux-gnu
-RUN /usr/aarch64-linux-gnu/bin/ld --verbose|grep -i -A 10 supported
+RUN apt-get install -y binutils-aarch64-linux-gnu
 env CARGO="cargo auditable"
 ARG TARGETARCH
 # Enable tokio runtime metrics
