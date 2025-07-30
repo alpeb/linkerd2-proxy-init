@@ -12,6 +12,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
     cargo fetch
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y binutils-aarch64-linux-gnu libc6-dev-arm64-cross gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi libclang1 gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf musl-tools g++-arm-linux-gnueabihf
+RUN ls -l /usr
 env CARGO="cargo auditable"
 ARG TARGETARCH
 # Enable tokio runtime metrics
