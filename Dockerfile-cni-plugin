@@ -7,6 +7,7 @@ COPY --link Cargo.toml Cargo.lock .
 COPY --link validator validator
 COPY --link cni-repair-controller cni-repair-controller
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    cargo install --force --locked bindgen-cli && \
     cargo fetch
 RUN apt-get update
 env CARGO="cargo auditable"
