@@ -1,11 +1,9 @@
 name: cni-plugin release
 
 on:
-  pull_request:
-    paths:
-      - .github/workflows/release-cni-plugin.yml
   push:
-    tags: ["cni-plugin/v*"]
+    branches:
+    - main
 
 permissions:
   contents: read
@@ -49,38 +47,3 @@ jobs:
                   --cache-to type=local,dest="$RUNNER_TEMP/.buildx-cache",mode=max \
                   --platform linux/amd64,linux/arm64,linux/arm/v7
       - run: just-dev prune-action-cache "$RUNNER_TEMP/.buildx-cache"
-
-      # Only publish images on release
-      - if: needs.meta.outputs.mode == 'release'
-        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.DOCKER_GHCR_USERNAME }}
-          password: ${{ secrets.DOCKER_GHCR_PAT }}
-      - if: needs.meta.outputs.mode == 'release'
-        run: |
-          just cni-plugin-image='${{ needs.meta.outputs.repo }}:${{ needs.meta.outputs.version }}' \
-                build-cni-plugin-image \
-                  --cache-from type=local,src="$RUNNER_TEMP/.buildx-cache" \
-                  --cache-to type=local,dest="$RUNNER_TEMP/.buildx-cache",mode=max \
-                  --platform linux/amd64,linux/arm64,linux/arm/v7 \
-                  --output type=registry
-      - if: needs.meta.outputs.mode == 'release'
-        uses: sigstore/cosign-installer@d58896d6a1865668819e1d91763c7751a165e159
-      - if: needs.meta.outputs.mode == 'release'
-        run: cosign sign -y "${{ needs.meta.outputs.repo }}:${{ needs.meta.outputs.version }}"
-        env:
-          COSIGN_EXPERIMENTAL: 1
-
-  github:
-    needs: [meta, docker-publish]
-    timeout-minutes: 5
-    permissions:
-      contents: write
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - if: needs.meta.outputs.mode == 'release'
-        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8
-        with:
-          name: cni-plugin ${{ needs.meta.outputs.version }}
