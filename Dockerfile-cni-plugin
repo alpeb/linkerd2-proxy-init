@@ -14,6 +14,7 @@ ARG TARGETARCH
 # Enable tokio runtime metrics
 ENV RUSTFLAGS="--cfg tokio_unstable"
 ENV AWS_LC_SYS_CFLAGS="-fuse-ld=/usr/aarch64-linux-gnu/bin/ld"
+RUN ls -l /usr
 RUN target=$(case "$TARGETARCH" in \
         amd64) echo x86_64-unknown-linux-musl ;; \
         arm64) echo aarch64-unknown-linux-musl ;; \
