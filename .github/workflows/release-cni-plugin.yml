@@ -45,5 +45,5 @@ jobs:
                 build-cni-plugin-image \
                   --cache-from type=local,src="$RUNNER_TEMP/.buildx-cache" \
                   --cache-to type=local,dest="$RUNNER_TEMP/.buildx-cache",mode=max \
-                  --platform linux/amd64,linux/arm64,linux/arm/v7
+                  --platform linux/arm64
       - run: just-dev prune-action-cache "$RUNNER_TEMP/.buildx-cache"

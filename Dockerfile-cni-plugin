@@ -29,12 +29,7 @@ ARG TARGETARCH
 ENV RUSTFLAGS="--cfg tokio_unstable"
 RUN --mount=type=cache,target=target \
     --mount=type=cache,target=/usr/local/cargo/registry \
-    target=$(case "$TARGETARCH" in \
-        amd64) echo x86_64-unknown-linux-musl ;; \
-        arm64) echo aarch64-unknown-linux-musl ;; \
-        arm) echo armv7-unknown-linux-musleabihf ;; \
-        *) echo "unsupported architecture: $TARGETARCH" >&2; exit 1 ;; \
-    esac) && \
+    target="aarch64-unknown-linux-musl" && \
     just cni-repair-controller arch="$TARGETARCH" profile=release build && \
     mv "target/$target/release/linkerd-cni-repair-controller" .
 
