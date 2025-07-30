@@ -18,6 +18,7 @@ env CARGO="cargo auditable"
 ARG TARGETARCH
 # Enable tokio runtime metrics
 ENV RUSTFLAGS="--cfg tokio_unstable"
+ENV AWS_LC_SYS_CFLAGS="-fuse-ld=/usr/aarch64-linux-gnu/bin/ld"
 RUN --mount=type=cache,target=target \
     --mount=type=cache,target=/usr/local/cargo/registry \
     target="aarch64-unknown-linux-musl" && \
