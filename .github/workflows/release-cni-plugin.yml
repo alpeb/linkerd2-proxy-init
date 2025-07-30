@@ -44,9 +44,9 @@ jobs:
         with:
           push: false
           platforms: linux/arm64
+          file: Dockerfile-cni-plugin
           tags: ghcr.io/alpeb/release-cni-plugin:test
           outputs: type=oci,dest=/tmp/release-cni-plugin:test.tar
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
       - run: |
           just cni-plugin-image='${{ needs.meta.outputs.repo }}:${{ needs.meta.outputs.version }}' \
                 build-cni-plugin-image \
